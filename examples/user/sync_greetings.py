@@ -13,7 +13,7 @@ start_time = time.time()
 load_dotenv()
 api_key = os.getenv("GENAI_KEY", None)
 
-print("\n------------- Example (Async Greetings)-------------\n")
+print("\n------------- Example (Sync Greetings)-------------\n")
 
 params = GenerateParams(
     decoding_method="sample",
@@ -34,8 +34,8 @@ num_of_greetings = len(lots_of_greetings)
 num_said_greetings = 0
 greeting1 = "Hello! How are you?"
 
-# yields batch of results that are produced asynchronously and in parallel
-for result in model.generate_async(lots_of_greetings, hide_progressbar=True):
+
+for result in model.generate_as_completed(lots_of_greetings):
     num_said_greetings += 1
     print(f"[Progress {str(float(num_said_greetings/num_of_greetings)*100)}%]")
     if result is not None:
